@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import {} from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import LoginScreen from "./screens/auth/LoginScreen";
+
+const loadAppLication = async () => {
+  await Font.loadAsync({
+    DeliciousHandrewn: require("./assets/fonts/DeliciousHandrawn-Regular.ttf"),
+  });
+};
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadAppLication}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <>
+   <LoginScreen/>
+
+   </>  
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-
 // import prompt from 'react-native-prompt-android';
 
 import {
@@ -25,7 +24,7 @@ const initialState = {
   password: ",",
 };
 
-export default function LoginScreen() {
+export const LoginScreen = ({ navigation }) => {
   console.log(Platform.OS);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
@@ -126,21 +125,43 @@ export default function LoginScreen() {
                 <Text style={styles.btnTitle}>SIGN IN</Text>
               </TouchableOpacity>
             </View>
+            {/* <Button title={"register"} onPress={()=>navigation.navigate("register")}
+            color="blue"
+          /> */}
+         
           </KeyboardAvoidingView>
+          <TouchableOpacity
+              style={{
+                marginTop: 10,
+                marginBottom: 20,
+                justifyContent: "center",
+              }}
+              onPress={() => navigation.navigate("register")}
+            >
+              <Text>
+                {" "}
+                {/* if you not register, please {" "} */}
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: "#ff8c00",
+                    textAlign: "center",
+                  }}
+                >
+                  Sing Up
+                </Text>
+              </Text>
+            </TouchableOpacity>
 
-          <Button
-            title={"Choose language"}
-            onPress={handleButtonPress}
-            color="orange"
-          />
-          <Button title={"Reviews"} onPress={handleButtonPress} />
+          {/* <Button  title={"Choose language"} onPress={handleButtonPress} color="orange" />
+          <Button title={"Reviews"} onPress={handleButtonPress} /> */}
 
           <StatusBar style="auto" />
         </ImageBackground>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

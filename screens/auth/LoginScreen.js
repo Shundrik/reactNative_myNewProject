@@ -35,8 +35,7 @@ export const LoginScreen = ({ navigation }) => {
   useEffect(() => {
     const onChange = () => {
       const width = Dimensions.get("window").width - 20 * 2;
-      console.log(width);
-      setDimentsions(width);
+     setDimentsions(width);
     };
     Dimensions.addEventListener("change", onChange);
     return () => {
@@ -48,7 +47,6 @@ export const LoginScreen = ({ navigation }) => {
     console.log("Keyboard hide");
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
     setState(initialState);
   };
 

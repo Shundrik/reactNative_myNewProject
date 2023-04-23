@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "myNewProject",
-    "slug": "myNewProject",
+    "name": "reactNtive_myNewProject",
+    "slug": "reactNtive_myNewProject",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -15,9 +15,11 @@
       "**/*"
     ],
     "ios": {
+      "jsEngine":"jsc",
       "supportsTablet": true
     },
     "android": {
+      "jsEngine":"jsc",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -1,8 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-
-// import prompt from 'react-native-prompt-android';
-
 import {
   Platform,
   Alert,
@@ -19,6 +16,8 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../../redax/auth/authOperations";
 
 const initialState = {
   email: "",
@@ -34,6 +33,8 @@ export const RegisterScreen = ({ navigation }) => {
     Dimensions.get("window").width - 20 * 2
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const onChange = () => {
       const width = Dimensions.get("window").width - 20 * 2;
@@ -46,11 +47,11 @@ export const RegisterScreen = ({ navigation }) => {
     };
   }, []);
 
-  const keyboadrHide = () => {
-    console.log("Keyboard hide");
+  const handleSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     console.log(state);
+    dispatch(authSignUpUser(state));
     setState(initialState);
   };
 
@@ -69,7 +70,7 @@ export const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboadrHide}>
+    <TouchableWithoutFeedback onPress={handleSubmit}>
       <SafeAreaView style={styles.container}>
         <ImageBackground
           source={require("../../assets/image/IMG_1898.jpg")}
@@ -134,35 +135,33 @@ export const RegisterScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 activeOpacity={0.9}
-                onPress={keyboadrHide}
+                onPress={handleSubmit}
               >
                 <Text style={styles.btnTitle}>SIGN UP</Text>
               </TouchableOpacity>
             </View>
-          
           </KeyboardAvoidingView>
           <TouchableOpacity
             style={{
               marginTop: 10,
               marginBottom: 20,
-              justifyContent:"center"
+              justifyContent: "center",
             }}
             onPress={() => navigation.navigate("login")}
           >
             <Text>
               {" "}
-            please {" "}
+              please{" "}
               <Text
                 style={{
                   fontSize: 20,
                   color: "#ff8c00",
-                  textAlign:"center"
+                  textAlign: "center",
                 }}
               >
                 Sing In
               </Text>
             </Text>
-           
           </TouchableOpacity>
 
           {/* <Button

@@ -10,7 +10,7 @@ const DefaultScreenPosts = ({ route, navigation }) => {
       setPosts((prevState) => [...prevState, route.params]);
     }
   }, [route.params]);
-  console.log(posts);
+
 
   return (
     <View style={styles.conteiner}>

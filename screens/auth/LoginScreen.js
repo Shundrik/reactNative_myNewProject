@@ -1,7 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-// import prompt from 'react-native-prompt-android';
-
 import {
   Platform,
   Alert,
@@ -18,24 +16,27 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import  {authSignInUser} from "../../redax/auth/authOperations";
+
 
 const initialState = {
   email: "",
-  password: ",",
+  password: "",
 };
 
 export const LoginScreen = ({ navigation }) => {
-  console.log(Platform.OS);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [dimentsions, setDimentsions] = useState(
     Dimensions.get("window").width - 20 * 2
   );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const onChange = () => {
       const width = Dimensions.get("window").width - 20 * 2;
-     setDimentsions(width);
+      setDimentsions(width);
     };
     Dimensions.addEventListener("change", onChange);
     return () => {
@@ -43,11 +44,16 @@ export const LoginScreen = ({ navigation }) => {
     };
   }, []);
 
-  const keyboadrHide = () => {
-    console.log("Keyboard hide");
+  const handleSubmit = () => {
     setIsShowKeyboard(false);
+    dispatch(authSignInUser(state));
     Keyboard.dismiss();
     setState(initialState);
+  };
+  const keyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    
   };
 
   const handleTextPress = () => console.log("Baby happy!");
@@ -65,7 +71,7 @@ export const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={keyboadrHide}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
       <SafeAreaView style={styles.container}>
         <ImageBackground
           source={require("../../assets/image/IMG_1898.jpg")}
@@ -118,7 +124,7 @@ export const LoginScreen = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.btn}
                 activeOpacity={0.9}
-                onPress={keyboadrHide}
+                onPress={handleSubmit}
               >
                 <Text style={styles.btnTitle}>SIGN IN</Text>
               </TouchableOpacity>
@@ -126,30 +132,29 @@ export const LoginScreen = ({ navigation }) => {
             {/* <Button title={"register"} onPress={()=>navigation.navigate("register")}
             color="blue"
           /> */}
-         
           </KeyboardAvoidingView>
           <TouchableOpacity
-              style={{
-                marginTop: 10,
-                marginBottom: 20,
-                justifyContent: "center",
-              }}
-              onPress={() => navigation.navigate("register")}
-            >
-              <Text>
-                {" "}
-                {/* if you not register, please {" "} */}
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#ff8c00",
-                    textAlign: "center",
-                  }}
-                >
-                  Sing Up
-                </Text>
+            style={{
+              marginTop: 10,
+              marginBottom: 20,
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("register")}
+          >
+            <Text>
+              {" "}
+              {/* if you not register, please {" "} */}
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#ff8c00",
+                  textAlign: "center",
+                }}
+              >
+                Sing Up
               </Text>
-            </TouchableOpacity>
+            </Text>
+          </TouchableOpacity>
 
           {/* <Button  title={"Choose language"} onPress={handleButtonPress} color="orange" />
           <Button title={"Reviews"} onPress={handleButtonPress} /> */}
